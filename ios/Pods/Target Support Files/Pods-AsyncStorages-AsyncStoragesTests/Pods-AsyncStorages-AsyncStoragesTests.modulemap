@@ -1,0 +1,6 @@
+module Pods_AsyncStorages_AsyncStoragesTests {
+  umbrella header "Pods-AsyncStorages-AsyncStoragesTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
