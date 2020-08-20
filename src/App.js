@@ -55,11 +55,17 @@ export default function App() {
                 />
 
                 <TouchableOpacity
-                    style={styles.submitLogin}
+                    style={styles.submit}
                     activeOpacity={0.8}
                     onPress={login}>
                     <Text style={styles.submitText}>ENTRAR</Text>
                 </TouchableOpacity>
+
+                <View style={styles.bottom}>
+                <TouchableOpacity style={styles.submit} activeOpacity={0.8}>
+                    <Text style={{color: '#DE3232', fontSize: 24}}>criar minha conta</Text>
+                </TouchableOpacity>
+                </View>
             </SafeAreaView>
         </DismissKeyboard>
     );

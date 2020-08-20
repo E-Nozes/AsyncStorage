@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         padding: 10,
         paddingLeft: 20,
     },
-    submitLogin: {
+    submit: {
         backgroundColor: '#FFFFFF',
         width: '90%',
         height: 50,
@@ -46,14 +46,20 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.6,
         elevation: 10,
         marginTop: 40,
-        marginBottom: -40,
     },
     submitText: {
         color: '#DE3232',
         fontSize: 24,
         fontWeight: 'bold',
-        textTransform: 'uppercase',
     },
+    bottom: {
+        marginTop: 50,
+        width: '90%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderTopColor: '#5B5B5B',
+        borderTopWidth: 1,
+    }
 });
 
 export default styles;
