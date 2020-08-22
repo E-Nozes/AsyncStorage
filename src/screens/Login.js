@@ -1,19 +1,18 @@
-import React, { useState } from 'react';
-import { Keyboard, SafeAreaView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
-import styles from './Login.stylesheet';
-import { AsyncStorage } from "react-native-web";
-import { call } from "react-native-reanimated";
+import React, {useState} from 'react';
+import {Keyboard, SafeAreaView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native';
+import styles from '../styles/Login.stylesheet';
+import {AsyncStorage} from "react-native-web";
 
-const DismissKeyboard = ({ children }) => (
+const DismissKeyboard = ({children}) => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         {children}
     </TouchableWithoutFeedback>
 );
 
-export default function Login({ navigation }) {
+export default function Login({navigation}) {
 
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
+    const [email, setEmail] = useState("");
+    const [senha, setSenha] = useState("");
 
     let senhaInput;
 
@@ -22,18 +21,15 @@ export default function Login({ navigation }) {
      */
     const login = async () => {
         try {
-            const usuarioCadastrado = await AsyncStorage.getItem(email, (err, result) => {
-
+            await AsyncStorage.getItem(email, (err, result) => {
                 if (result !== senha) {
-                    alert(`Usuário e senha não condizem`)
+                    alert("E-mail e senha não condizem");
                 } else {
-                    navigation.navigate('Home');
+                    navigation.navigate("Home");
                 }
             });
-
-
         } catch (e) {
-            alert('Erro ao logar' + e);
+            throw new Error("Erro ao logar: " + e);
         }
     };
 
@@ -79,12 +75,11 @@ export default function Login({ navigation }) {
                 </TouchableOpacity>
 
                 <View style={styles.bottom}>
-                    <TouchableOpacity style={styles.submit} activeOpacity={0.8}
-                        onPress={() => navigation.push("Register")}>
-                        <Text style={{ color: '#DE3232', fontSize: 24 }}>criar minha conta</Text>
+                    <TouchableOpacity style={styles.submit} activeOpacity={0.8} onPress={() => navigation.push("Register")}>
+                        <Text style={{color: '#DE3232', fontSize: 24}}>criar minha conta</Text>
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
         </DismissKeyboard>
     );
-}
+};

@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+
 const styles = StyleSheet.create({
     background: {
         flex: 1,
@@ -6,8 +7,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#DE3232',
     },
-    containerTop: {
-        height: '25%',
+    container: {
+        height: '20%',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -22,13 +23,6 @@ const styles = StyleSheet.create({
         fontFamily: 'Arial',
         color: '#FFFFFF',
     },
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '90%',
-        marginBottom: 100,
-    },
     input: {
         backgroundColor: '#FFFFFF',
         width: '90%',
@@ -39,7 +33,7 @@ const styles = StyleSheet.create({
         padding: 10,
         paddingLeft: 20,
     },
-    submitLogin: {
+    submit: {
         backgroundColor: '#FFFFFF',
         width: '90%',
         height: 50,
@@ -52,13 +46,20 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.6,
         elevation: 10,
         marginTop: 40,
-        marginBottom: -40,
     },
     submitText: {
         color: '#DE3232',
         fontSize: 24,
         fontWeight: 'bold',
-        textTransform: 'uppercase',
     },
+    bottom: {
+        marginTop: 50,
+        width: '90%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        borderTopColor: '#5B5B5B',
+        borderTopWidth: 1,
+    }
 });
+
 export default styles;
