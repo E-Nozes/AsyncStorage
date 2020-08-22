@@ -1,16 +1,39 @@
-import React, { useState } from 'react';
-import { Keyboard, SafeAreaView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
-import styles from './SignUp.stylesheet';
-const DismissKeyboard = ({ children }) => (
+import React, {useState} from 'react';
+import {Keyboard, SafeAreaView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native';
+import styles from './Register.stylesheet';
+import {AsyncStorage} from "react-native-web";
+
+const DismissKeyboard = ({children}) => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         {children}
     </TouchableWithoutFeedback>
 );
-export default function Register() {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
 
-    let passwordInput;
+export default function Register({navigation}) {
+
+    const [email, setEmail] = useState('');
+    const [senha, setSenha] = useState('');
+
+    let senhaInput;
+
+    /**
+     * Register function
+     */
+    const register = async (email, senha, callback = null) => {
+        try {
+            const emailCadastrado = await AsyncStorage.getItem(email, callback);
+
+            if (emailCadastrado) {
+                throw new Error('E-mail já existe');
+            }
+
+            await AsyncStorage.setItem(email, senha, callback);
+
+            navigation.navigate('Login');
+        } catch (e) {
+            throw new Error('Erro ao cadastrar');
+        }
+    }
 
     return (
         <DismissKeyboard>
@@ -19,6 +42,7 @@ export default function Register() {
                     <Text style={styles.mainTitle}>Async Storage</Text>
                     <Text style={styles.subTitle}>Crie sua conta grátis</Text>
                 </View>
+
                 <TextInput
                     style={styles.input}
                     placeholder="Digite seu e-mail..."
@@ -28,8 +52,9 @@ export default function Register() {
                     returnKeyType="next"
                     onChangeText={(email) => setEmail(email)}
                     defaultValue={email}
-                    onSubmitEditing={() => passwordInput.focus()}
+                    onSubmitEditing={() => senhaInput.focus()}
                 />
+
                 <TextInput
                     style={styles.input}
                     placeholder="Digite sua senha..."
@@ -37,11 +62,12 @@ export default function Register() {
                     autoCapitalize="none"
                     returnKeyType="go"
                     secureTextEntry
-                    onChangeText={(password) => setPassword(password)}
-                    defaultValue={password}
-                    ref={(input) => (passwordInput = input)}
+                    onChangeText={(senha) => setSenha(senha)}
+                    defaultValue={senha}
+                    ref={(input) => (senhaInput = input)}
                     onSubmitEditing={() => ''}
                 />
+
                 <TouchableOpacity style={styles.submitLogin} activeOpacity={0.8}>
                     <Text style={styles.submitText}>CRIAR CONTA</Text>
                 </TouchableOpacity>

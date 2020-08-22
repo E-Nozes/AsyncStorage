@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
-import { Keyboard, SafeAreaView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
+import React, {useState} from 'react';
+import {Keyboard, SafeAreaView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native';
 import styles from './Login.stylesheet';
+import {AsyncStorage} from "react-native-web";
+import {call} from "react-native-reanimated";
 
-const DismissKeyboard = ({ children }) => (
+const DismissKeyboard = ({children}) => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         {children}
     </TouchableWithoutFeedback>
 );
 
-export default function Login({ navigation }) {
+export default function Login({navigation}) {
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
@@ -18,8 +20,20 @@ export default function Login({ navigation }) {
     /**
      * Login function
      */
-    const login = async () => {
-        // TODO
+    const login = async (email, senha, callback = null) => {
+        try {
+            const usuarioCadastrado = await AsyncStorage.getItem(email, callback);
+            console.log('Info: ' + usuarioCadastrado);
+            console.log('Info: ' + callback);
+
+            if (!usuarioCadastrado || callback !== senha) {
+                throw new Error('E-mail ou senha inválidos');
+            }
+
+            navigation.navigate('Home');
+        } catch (e) {
+            throw new Error('Erro ao logar');
+        }
     };
 
     return (
@@ -65,11 +79,11 @@ export default function Login({ navigation }) {
 
                 <View style={styles.bottom}>
                     <TouchableOpacity style={styles.submit} activeOpacity={0.8}
-                        onPress={() => navigation.push("SignUp")}>
-                        <Text style={{ color: '#DE3232', fontSize: 24 }}>criar minha conta</Text>
+                                      onPress={() => navigation.push("Register")}>
+                        <Text style={{color: '#DE3232', fontSize: 24}}>criar minha conta</Text>
                     </TouchableOpacity>
                 </View>
             </SafeAreaView>
-        </DismissKeyboard >
+        </DismissKeyboard>
     );
 }
