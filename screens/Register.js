@@ -1,15 +1,15 @@
-import React, {useState} from 'react';
-import {Keyboard, SafeAreaView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View} from 'react-native';
+import React, { useState } from 'react';
+import { Keyboard, SafeAreaView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import styles from './Register.stylesheet';
-import {AsyncStorage} from "react-native-web";
+import { AsyncStorage } from "react-native-web";
 
-const DismissKeyboard = ({children}) => (
+const DismissKeyboard = ({ children }) => (
     <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
         {children}
     </TouchableWithoutFeedback>
 );
 
-export default function Register({navigation}) {
+export default function Register({ navigation }) {
 
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
@@ -24,14 +24,17 @@ export default function Register({navigation}) {
             const emailCadastrado = await AsyncStorage.getItem(email, callback);
 
             if (emailCadastrado) {
-                throw new Error('E-mail já existe');
+                alert('E-mail já existe');
             }
 
             await AsyncStorage.setItem(email, senha, callback);
 
             navigation.navigate('Login');
         } catch (e) {
+            alert('Erro ao cadastrar');
             throw new Error('Erro ao cadastrar');
+
+
         }
     }
 
@@ -68,7 +71,9 @@ export default function Register({navigation}) {
                     onSubmitEditing={() => ''}
                 />
 
-                <TouchableOpacity style={styles.submitLogin} activeOpacity={0.8}>
+                <TouchableOpacity style={styles.submitLogin} activeOpacity={0.8}
+                    onPress={() => register(email, senha)}
+                >
                     <Text style={styles.submitText}>CRIAR CONTA</Text>
                 </TouchableOpacity>
             </SafeAreaView>
