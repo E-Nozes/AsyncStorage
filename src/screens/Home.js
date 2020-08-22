@@ -8,7 +8,7 @@ export default function Home({navigation}) {
             <TouchableWithoutFeedback onPress={() => {
                 navigation.navigate("Login")
             }}>
-                <Text>Sair</Text>
+                <Text style={styles.mainTitle}>Sair</Text>
             </TouchableWithoutFeedback>
         </SafeAreaView>
     )
